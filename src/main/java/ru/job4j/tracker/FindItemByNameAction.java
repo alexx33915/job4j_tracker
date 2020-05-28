@@ -1,9 +1,9 @@
 package ru.job4j.tracker;
 
-public class findItemByNameAction implements UserAction {
+public class FindItemByNameAction implements UserAction {
     @Override
     public String name() {
-        return"=== Find items by name ===";
+        return "=== Find items by name ===";
     }
 
     @Override
@@ -12,8 +12,8 @@ public class findItemByNameAction implements UserAction {
         Item[] result = tracker.findByName(name);
         if (result.length != 0) {
 
-            for (int i = 0; i < result.length; i++) {
-                System.out.println(result[i]);
+            for (Item i : result) {
+                System.out.println(i);
             }
         } else {
             System.out.println("application not found");

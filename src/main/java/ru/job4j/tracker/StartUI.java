@@ -24,12 +24,12 @@ public class StartUI {
         Tracker tracker = new Tracker();
         UserAction[] actions = {
                 new CreateAction(),
-                new showAllAction(),
-                new editItemAction(),
-                new deleteItemAction(),
-                new findItemByIdAction(),
-                new findItemByNameAction(),
-                new exitProgramAction()
+                new ShowAllAction(),
+                new EditItemAction(),
+                new DeleteItemAction(),
+                new FindItemByIdAction(),
+                new FindItemByNameAction(),
+                new ExitProgramAction()
         };
         new StartUI().init(input, tracker, actions);
     }

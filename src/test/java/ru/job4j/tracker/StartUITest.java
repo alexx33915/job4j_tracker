@@ -21,7 +21,7 @@ public class StartUITest {
     @Test
     public void whenReplaceItem(){
 
-        UserAction action = new editItemAction();
+        UserAction action = new EditItemAction();
         Tracker tracker = new Tracker();
         Item item = new Item("new item");
         tracker.add(item);
@@ -36,7 +36,7 @@ public class StartUITest {
 
     @Test
     public void whenDeleteItem(){
-        UserAction action = new deleteItemAction();
+        UserAction action = new DeleteItemAction();
         Tracker tracker = new Tracker();
         Item item = new Item("new item");
         tracker.add(item);
