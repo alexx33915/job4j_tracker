@@ -1,6 +1,14 @@
 package ru.job4j.tracker;
 
 public class StartUI {
+    private final Output out;
+
+    public StartUI(Output out) {
+        this.out = out;
+    }
+    public StartUI() {
+        this.out = null;
+    }
 
     public void init(Input input, Tracker tracker, UserAction[] actions) {
         boolean run = true;
@@ -8,7 +16,7 @@ public class StartUI {
             this.showMenu(actions);
             int select = input.askInt("Select: ");
             if (select < 0 || select >= actions.length) {
-                System.out.println("Wrong input, you can select: 0 .. " + (actions.length - 1));
+                out.println("Wrong input, you can select: 0 .. " + (actions.length - 1));
                 continue;
             }
             UserAction action = actions[select];
@@ -17,24 +25,25 @@ public class StartUI {
     }
 
     private void showMenu(UserAction[] actions) {
-        System.out.println("Menu.");
+        out.println("Menu.");
         for (int index = 0; index < actions.length; index++) {
-            System.out.println(index + ". " + actions[index].name());
+            out.println(index + ". " + actions[index].name());
         }
     }
 
     public static void main(String[] args) {
+        Output output = new ConsoleOutput();
         Input input = new ValidateInput();
         Tracker tracker = new Tracker();
         UserAction[] actions = {
-                new CreateAction(),
-                new ShowAllAction(),
-                new EditItemAction(),
-                new DeleteItemAction(),
-                new FindItemByIdAction(),
-                new FindItemByNameAction(),
+               // new CreateAction(output),
+               // new ShowAllAction(),
+               // new EditItemAction(),
+               // new DeleteItemAction(),
+               // new FindItemByIdAction(),
+               // new FindItemByNameAction(),
                 new ExitProgramAction()
         };
-        new StartUI().init(input, tracker, actions);
+        new StartUI(output).init(input, tracker, actions);
     }
 }
