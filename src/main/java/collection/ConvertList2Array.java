@@ -20,6 +20,7 @@ public class ConvertList2Array {
                 cell++;
             }
         }
+
         return array;
     }
 
