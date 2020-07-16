@@ -1,6 +1,5 @@
 package collection;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class ConvertList2Array {
@@ -9,11 +8,16 @@ public class ConvertList2Array {
         System.out.println(groups);
         int[][] array = new int[groups][cells];
 
-        Iterator<Integer> iterator = list.iterator();
-        for (int row = 0; row < groups; row++) {
-            for (int cell = 0; cell < cells; cell++) {
-                if (iterator.hasNext())
-                    array[row][cell] = iterator.next();
+        int row = 0, cell = 0;
+        for (Integer num : list) {
+            if (cell < cells) {
+                array[row][cell] = num;
+                cell++;
+            } else {
+                cell = 0;
+                row++;
+                array[row][cell] = num;
+                cell++;
             }
         }
         return array;
