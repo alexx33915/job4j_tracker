@@ -1,18 +1,15 @@
 package ru.job4j.tracker;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Tracker {
     /**
      * Массив для хранение заявок.
      */
-    private final Item[] items = new Item[100];
+    List<Item> items = new ArrayList<>();
 
-    /**
-     * Указатель ячейки для новой заявки.
-     */
-    private int position = 0;
 
     /**
      * Метод реализующий добавление заявки в хранилище
@@ -21,7 +18,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(generateId());
-        this.items[position++] = item;
+        this.items.add(item);
         return item;
     }
 
@@ -31,7 +28,6 @@ public class Tracker {
      *
      * @return Уникальный ключ.
      */
-
     private String generateId() {
         Random rm = new Random();
         return String.valueOf(rm.nextLong() + System.currentTimeMillis());
@@ -42,8 +38,8 @@ public class Tracker {
      *
      * @return возвращает копию массива this.items без null элементов
      */
-    public Item[] findAll() {
-        return Arrays.copyOf(items, position);
+    public List<Item> findAll() {
+        return this.items;  //Arrays.copyOf(items, position);
     }
 
     /**
@@ -52,18 +48,13 @@ public class Tracker {
      *
      * @return возвращает копию массива this.items без null элементов cо значением key
      */
-    public Item[] findByName(String key) {
-        Item[] itemsWithoutNull = new Item[position];
-        int size = 0;
-        for (int index = 0; index < position; index++) {
-            Item name = items[index];
-            if (name.getName().equals(key)) {
-                itemsWithoutNull[size] = name;
-                size++;
-            }
+    public List<Item> findByName(String key) {
+        List<Item> rsl = new ArrayList<>();
+        for (Item item : this.items) {
+            if (item.getName().equals(key))
+                rsl.add(item);
         }
-        return Arrays.copyOf(itemsWithoutNull, size);
-
+        return rsl;
     }
 
     /**
@@ -73,37 +64,29 @@ public class Tracker {
      * @return возвращает копию массива this.items без null элементов cо значением key
      */
     public Item findById(String id) {
-        int index = indexOf(id);
-        return index != -1 ? items[index] : null;
-    }
-
-    /**
-     * Метод возвращать index по id
-     *
-     * @return возвращать index
-     */
-    private int indexOf(String id) {
-        int rsl = -1;
-        for (int index = 0; index < position; index++) {
-            if (items[index].getId().equals(id)) {
-                rsl = index;
+        Item rsl = null;
+        for (Item item : this.items)
+            if (item.getId().equals(id)) {
+                rsl = item;
                 break;
             }
-        }
         return rsl;
     }
 
     /**
      * Метод возвращать true если заявку поменяли на новую,
      * false если заявку не поменяли (нет такого id)
+     *
      * @return возвращать boolean
      */
     public boolean replace(String id, Item item) {
-        int indexTemp = indexOf(id);
-        if (indexTemp != -1) {
-            item.setId(id);
-            items[indexTemp] = item;
-            return true;
+        for (Item rsl : this.items) {
+            if (rsl.getId().equals(id)) {
+                item.setId(id);
+                int index = items.indexOf(rsl);
+                items.set(index, item);
+                return true;
+            }
         }
         return false;
     }
@@ -111,22 +94,16 @@ public class Tracker {
     /**
      * Метод возвращать true если заявку удалена
      * false если заявку не удалена (нет такого id)
+     *
      * @return возвращать boolean
      */
     public boolean delete(String id) {
-        int index = indexOf(id);
-        if(index != -1) {
-
-            System.arraycopy(items, index + 1, items, index, position - index);
-
-            position--;
-            items[position ] = null;
-            return true;
+        for (Item item : this.items) {
+            if (item.getId().equals(id)) {
+                this.items.remove(item);
+                return true;
+            }
         }
         return false;
     }
-
-
-
-
 }

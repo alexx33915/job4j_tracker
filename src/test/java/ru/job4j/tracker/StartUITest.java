@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
 import static java.lang.System.lineSeparator;
@@ -19,7 +21,9 @@ public class StartUITest {
         Input input = new StubInput(answers);
         Tracker tracker = new Tracker();
         action.execute(input, tracker);
-        Item created = tracker.findAll()[0];
+
+       // Item created = tracker.findAll()[0];
+        Item created = tracker.findAll().get(0);
         Item expected = new Item("Fix PC");
         assertThat(created.getName(), is(expected.getName()));
     }
@@ -58,19 +62,23 @@ public class StartUITest {
         Output out = new StubOutput();
         StubInput input = new StubInput(new String[]{"0"});
         StubAction action = new StubAction();
-        new StartUI(out).init(input, new Tracker(), new UserAction[]{action});
+        List<UserAction> listAction =new ArrayList<>();
+        listAction.add(action);
+        new StartUI(out).init(input, new Tracker(), listAction);
         assertThat(action.isCall(), is(true));
     }
 
     @Test
     public void whenPrtMenu() {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        PrintStream def = System.out;
+        PrintStream def = System.out;        // System.out;
         System.setOut(new PrintStream(out));
 
         StubInput input = new StubInput(new String[]{"0"});
         StubAction action = new StubAction();
-        new StartUI().init(input, new Tracker(), new UserAction[]{action});
+        List<UserAction> listAction =new ArrayList<>();
+        listAction.add(action);
+        new StartUI().init(input, new Tracker(), listAction);
         String expect = new StringJoiner(lineSeparator(), "", lineSeparator())
                 .add("Menu.")
                 .add("0. Stub action")
@@ -126,9 +134,8 @@ public class StartUITest {
                 new String[]{"0"}
         );
         Tracker tracker = new Tracker();
-        UserAction[] actions = {
-                new ExitProgramAction()
-        };
+        List<UserAction> actions = new ArrayList<UserAction>();
+        actions.add(new ExitProgramAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
                 "Menu.\\r\\n0. === Exit Program ===" + lineSeparator()));
@@ -141,9 +148,9 @@ public class StartUITest {
                 new String[]{"5", "0"}
         );
         Tracker tracker = new Tracker();
-        UserAction[] actions = {
-                new ExitProgramAction()
-        };
+        List<UserAction> actions = new ArrayList<>();
+        actions.add(new ExitProgramAction());
+
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
                 String.format(
