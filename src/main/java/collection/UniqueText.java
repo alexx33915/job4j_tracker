@@ -23,4 +23,11 @@ public class UniqueText {
         /* for-each text -> hashSet.contains */
         return rsl;
     }
+
+    public static void main(String[] args) {
+        String origin = "My cat eats a mouse";
+        String text = "A mouse is eaten by a cat";
+        boolean tt  = isEquals(origin,text);
+
+    }
 }

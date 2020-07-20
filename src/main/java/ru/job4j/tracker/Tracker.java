@@ -34,19 +34,19 @@ public class Tracker {
     }
 
     /**
-     * Метод возвращает копию массива this.items без null элементов
+     * Метод возвращает  массив this.items
      *
-     * @return возвращает копию массива this.items без null элементов
+     * @return возвращает  массив this.items
      */
     public List<Item> findAll() {
-        return this.items;  //Arrays.copyOf(items, position);
+        return this.items;
     }
 
     /**
      * Метод проверяет в цикле все элементы массива this.items,
      * сравнивая name (используя метод getName класса Item) с аргументом метода String key
      *
-     * @return возвращает копию массива this.items без null элементов cо значением key
+     * @return возвращает копию массива this.items  cо значением key
      */
     public List<Item> findByName(String key) {
         List<Item> rsl = new ArrayList<>();
@@ -59,17 +59,17 @@ public class Tracker {
 
     /**
      * Метод проверяет в цикле все элементы массива this.items,
-     * сравнивая name (используя метод getName класса Item) с аргументом метода String key
+     * сравнивая id  с аргументом метода String id
      *
-     * @return возвращает копию массива this.items без null элементов cо значением key
+     * @return возвращает Item по id
      */
     public Item findById(String id) {
         Item rsl = null;
-        for (Item item : this.items)
-            if (item.getId().equals(id)) {
-                rsl = item;
-                break;
-            }
+        int indexTemp = indexOf(id);
+        if (indexTemp != -1) {
+           rsl = items.get(indexTemp);
+        }
+
         return rsl;
     }
 
@@ -80,13 +80,11 @@ public class Tracker {
      * @return возвращать boolean
      */
     public boolean replace(String id, Item item) {
-        for (Item rsl : this.items) {
-            if (rsl.getId().equals(id)) {
-                item.setId(id);
-                int index = items.indexOf(rsl);
-                items.set(index, item);
-                return true;
-            }
+        int indexTemp = indexOf(id);
+        if (indexTemp != -1) {
+            item.setId(id);
+            items.set(indexTemp, item);
+            return true;
         }
         return false;
     }
@@ -98,12 +96,30 @@ public class Tracker {
      * @return возвращать boolean
      */
     public boolean delete(String id) {
-        for (Item item : this.items) {
-            if (item.getId().equals(id)) {
-                this.items.remove(item);
-                return true;
-            }
+        int indexTemp = indexOf(id);
+        if (indexTemp != -1) {
+            this.items.remove(indexTemp);
+            return true;
         }
         return false;
+    }
+
+
+    /**
+     *  Метод возвращает индекс элемента в ArrayList
+     *  по id
+     * @param id
+     * @return  индекс , или -1 если не нашел id
+     */
+    private int indexOf(String id) {
+        int rsl = -1;
+
+        for (Item item : this.items) {
+            if (item.getId().equals(id)) {
+                rsl = this.items.indexOf(item);
+                break;
+            }
+        }
+        return rsl;
     }
 }

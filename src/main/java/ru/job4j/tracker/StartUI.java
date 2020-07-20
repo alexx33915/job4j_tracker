@@ -42,11 +42,11 @@ public class StartUI {
         List<UserAction> actions = new ArrayList<>();
 
         actions.add(new CreateAction(output));
-        // new ShowAllAction(),
-        // new EditItemAction(),
-        // new DeleteItemAction(),
-        // new FindItemByIdAction(),
-        // new FindItemByNameAction(),
+        actions.add(new ShowAllAction());
+        actions.add(new EditItemAction());
+        actions.add(new DeleteItemAction());
+        actions.add(new FindItemByIdAction());
+        actions.add(new FindItemByNameAction());
         actions.add(new ExitProgramAction());
 
         new StartUI(output).init(input, tracker, actions);
