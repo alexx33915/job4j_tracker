@@ -111,12 +111,12 @@ public class Tracker {
      * @param id
      * @return  индекс , или -1 если не нашел id
      */
+
     private int indexOf(String id) {
         int rsl = -1;
-
-        for (Item item : this.items) {
-            if (item.getId().equals(id)) {
-                rsl = this.items.indexOf(item);
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId().equals(id)) {
+                rsl = i;
                 break;
             }
         }
