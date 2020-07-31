@@ -66,7 +66,7 @@ public class TrackerTest {
     }
 
     @Test
-    public void sortItem() {
+    public void sortItemByNameAsc() {
         Tracker tracker = new Tracker();
         Item item1 = new Item("BBB");
         tracker.add(item1);
@@ -80,12 +80,13 @@ public class TrackerTest {
         tracker.add(item5);
 
         List<Item> result = tracker.findAll();
-        Collections.sort(result);
+        ItemSortByNameAscending s = new ItemSortByNameAscending();
+        result.sort(s);
         assertThat(result.get(0).getName(), is("AAA"));
     }
 
     @Test
-    public void sortReverseItem() {
+    public void sortItemByNameDesc() {
         Tracker tracker = new Tracker();
         Item item1 = new Item("BBB");
         tracker.add(item1);
@@ -99,7 +100,8 @@ public class TrackerTest {
         tracker.add(item5);
 
         List<Item> result = tracker.findAll();
-        Collections.sort(result, Collections.reverseOrder());
+        ItemSortByNameDescending s =new ItemSortByNameDescending();
+         result.sort(s);
         assertThat(result.get(0).getName(), is("ZZZ"));
     }
 

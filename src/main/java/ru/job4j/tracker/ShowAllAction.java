@@ -12,7 +12,7 @@ public class ShowAllAction implements UserAction {
     @Override
     public boolean execute(Input input, Tracker tracker) {
         List<Item> result = tracker.findAll();
-        Collections.sort(result);
+
         for(Item i: result){
             System.out.println(i);
         }
