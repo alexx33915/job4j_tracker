@@ -5,22 +5,26 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 import java.util.*;
 
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.*;
+
 
 public class JobTest {
     @Test
-    public void testComparatorJobDescByName() {
+     public void testComparatorJobDescByName() {
         List<Job> jobs = Arrays.asList(
                 new Job("CCC", 1),
                 new Job("ZZZ", 4),
                 new Job("AAA", 2)
         );
-
         JobDescByName jdbn = new JobDescByName();
         jobs.sort(jdbn);
-
-        assertThat(jobs.get(0).getName(), Matchers.is("ZZZ"));
+        Iterator<Job> it = jobs.iterator();
+        assertThat(it.next(), is(new Job("ZZZ", 4)));
+        assertThat(it.next(), is(new Job("CCC", 1)));
+        assertThat(it.next(), is( new Job("AAA", 2)));
     }
-
     @Test
     public void testComparatorJobAscByName() {
         List<Job> jobs = Arrays.asList(
@@ -30,7 +34,6 @@ public class JobTest {
         );
         JobAscByName jabn = new JobAscByName();
         jobs.sort(jabn);
-
         assertThat(jobs.get(0).getName(), Matchers.is("AAA"));
     }
     @Test
