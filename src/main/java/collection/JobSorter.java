@@ -14,11 +14,10 @@ public class JobSorter {
                 new Job("ZZZ", 4),
                 new Job("AAA", 4)
         );
-// Collections.sort(jobs, new JobDescByName().thenComparing(new JobDescByPriority()));
-        Collections.sort(jobs, new JobAscByName().thenComparing(new JobAscByPriority()));
+        Collections.sort(jobs, new JobDescByName().thenComparing(new JobDescByPriority()));
+
         for (Job job : jobs) {
             System.out.println(job);
         }
-
     }
 }
