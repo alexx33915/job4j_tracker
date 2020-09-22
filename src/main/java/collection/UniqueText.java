@@ -8,6 +8,7 @@ public class UniqueText {
         boolean rsl = true;
         String[] origin = originText.split(" ");
         String[] text = duplicateText.split(" ");
+
         HashSet<String> check = new HashSet<>();
         for (int i = 0; i <origin.length ; i++) {
             check.add(origin[i]);
@@ -28,6 +29,6 @@ public class UniqueText {
         String origin = "My cat eats a mouse";
         String text = "A mouse is eaten by a cat";
         boolean tt  = isEquals(origin,text);
-
+        System.out.println(tt);
     }
 }
