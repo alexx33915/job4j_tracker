@@ -8,16 +8,22 @@ public class FreezeStr {
     public static boolean eq(String left, String right) {
         boolean rsl = true;
         Map<Character, Integer> map1 = readString(left);
-        Map<Character, Integer> map2 = readString(right);
-
-        for (Map.Entry<Character, Integer> pair : map1.entrySet()) {
-            if (map2.containsKey(pair.getKey())) {
-                if (!map2.get(pair.getKey()).equals(pair.getValue())) {
-                    rsl = false;
+        for (int i = 0; i < right.length(); i++) {
+            Character ch = right.charAt(i);
+            if (map1.containsKey(ch)) {
+                Integer value = map1.get(ch);
+                if (value > 1) {
+                    map1.put(ch, --value);
+                } else {
+                    map1.remove(ch);
                 }
             } else {
                 rsl = false;
+                break;
             }
+        }
+        if (!(map1.size() == 0)) {
+            rsl = false;
         }
         return rsl;
     }

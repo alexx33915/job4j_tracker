@@ -3,22 +3,21 @@ package collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class Article {
     public static boolean generateBy(String origin, String line) {
         boolean rsl = true;
-        origin = origin.replace('.', ' ')
-                       .replace('!', ' ')
-                       .replace(',', ' ');
+        origin=origin.replaceAll("\\p{P}", "");
         String[] original = origin.split(" ");
         String[] text = line.split(" ");
-        Map<Integer, String> map = new HashMap<>();
+
+        Set<String> set = new HashSet<>();
         for (int i = 0; i < original.length; i++) {
-            map.put(i, original[i]);
+            set.add( original[i]);
         }
         for (int j = 0; j < text.length; j++) {
-            String ss = text[j];
-            if (!map.containsValue(ss)) {
+            if (!set.contains(text[j])) {
                 rsl = false;
                 break;
             }
