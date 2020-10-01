@@ -11,6 +11,7 @@ public class ScopeInside {
             total += add(
                     () -> +number[num]
             );
+
         }
         System.out.println(total);
     }
