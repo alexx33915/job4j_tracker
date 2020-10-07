@@ -23,27 +23,12 @@ public class PhoneDictionary {
      * @param key Ключ поиска.
      * @return Список подощедщих пользователей.
      */
-  /*  public ArrayList<Person> find(final String key) {
-        ArrayList<Person> result = new ArrayList<>();
-
-        for (Person person : persons) {
-            if (person.getAddress().contains(key)
-                    || person.getName().contains(key)
-                    || person.getPhone().contains(key)
-                    || person.getSurname().contains(key)) {
-                result.add(person);
-            }
-        }
-        return result;
-    }*/
-
     public ArrayList<Person> find(String key) {
-        Predicate<Person> combine = person -> person.getAddress().contains(key)
-                                            || person.getName().contains(key)
-                                            || person.getPhone().contains(key)
-                                            || person.getSurname().contains(key);
-
-
+        Predicate<Person> addressHasKey = person -> person.getAddress().contains(key);
+        Predicate<Person> nameHasKey = person -> person.getName().contains(key);
+        Predicate<Person> phoneHasKey = person -> person.getPhone().contains(key);
+        Predicate<Person> surnameHasKey = person -> person.getSurname().contains(key);
+        Predicate<Person> combine = addressHasKey.or(nameHasKey).or(phoneHasKey).or(surnameHasKey);
         ArrayList<Person> result = new ArrayList<>();
         for (Person person : persons) {
             if (combine.test(person)) {
@@ -52,8 +37,4 @@ public class PhoneDictionary {
         }
         return result;
     }
-
-
-
-
 }
