@@ -11,22 +11,21 @@ public class listToMap {
     public static void main(String[] args) {
 
         List<Student> students = new ArrayList<>();
-            students.add(new Student(10, "Surname1"));
-            students.add(new Student(20, "Surname2"));
-            students.add(new Student(30, "Surname3"));
-            students.add(new Student(40, "Surname4"));
-            students.add(new Student(50, "Surname5"));
-            students.add(new Student(60, "Surname6"));
-            students.add(new Student(70, "Surname7"));
-            students.add(new Student(80, "Surname8"));
-            students.add(new Student(90, "Surname9"));
+        students.add(new Student(10, "Surname1"));
+        students.add(new Student(20, "Surname1"));
 
-           Map<Integer,String> map = students.stream()
-                   .collect(Collectors.toMap(
-                           e->e.getScore(),
-                           e->e.getSurname()
-                   ));
-        System.out.println(map);
-        }
+        System.out.println(listToMap(students));
     }
+
+    static Map<String, Integer> listToMap(List<Student> students) {
+        Map<String, Integer> map = students.stream()
+                .collect(Collectors.toMap(
+                        Student::getSurname,
+                        Student::getScore,
+                        (a,b) -> a+b
+                ));
+        return map;
+    }
+}
+
 
