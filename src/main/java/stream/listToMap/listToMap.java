@@ -17,12 +17,12 @@ public class listToMap {
         System.out.println(listToMap(students));
     }
 
-    static Map<String, Integer> listToMap(List<Student> students) {
-        Map<String, Integer> map = students.stream()
+    static Map<String, Student> listToMap(List<Student> students) {
+        Map<String, Student> map = students.stream()
                 .collect(Collectors.toMap(
-                        Student::getSurname,
-                        Student::getScore,
-                        (a,b) -> a+b
+                       e -> e.getSurname(),
+                       e->e,
+                        (a,b) -> a
                 ));
         return map;
     }
