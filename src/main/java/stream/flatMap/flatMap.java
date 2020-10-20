@@ -12,7 +12,9 @@ public class flatMap {
         );
 
         System.out.println(
-                matrix.stream().flatMap(Collection::stream).collect(Collectors.toList())
+                matrix.stream()
+                        .flatMap(Collection::stream)
+                        .collect(Collectors.toList())
         );
 
 
