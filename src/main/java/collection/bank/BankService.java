@@ -29,21 +29,16 @@ public class BankService {
     public Optional<Account> findByRequisite(String passport, String requisite) {
         Optional<User> userOptional = findByPassport(passport);
         List<Account> list;
-
         Optional<Account> optionalAccount = Optional.empty();
-
         if (userOptional.isPresent()) {
-
             list = users.get(userOptional.get());
             for (Account account : list) {
                 if (account.getRequisite().equals(requisite)) {
                     optionalAccount = Optional.of(account);
+                    break;
                 }
-
-
             }
         }
-
         return optionalAccount;
     }
 
@@ -51,20 +46,16 @@ public class BankService {
                                  String destPassport, String dеstRequisite, double amount) {
         boolean rsl = false;
         Optional<Account> accountSrc = findByRequisite(srcPassport, srcRequisite);
-
         if (!accountSrc.isPresent()) {
             return false;
         }
         Optional<Account> accountDest = findByRequisite(destPassport, dеstRequisite);
-
         if (!accountDest.isPresent() && accountSrc.get().getBalance() < amount) {
             return false;
         }
-
         accountSrc.get().setBalance(accountSrc.get().getBalance() - amount);
         accountDest.get().setBalance(accountDest.get().getBalance() + amount);
         rsl = true;
-
         return rsl;
     }
 }
